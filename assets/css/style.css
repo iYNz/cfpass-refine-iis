@@ -239,8 +239,7 @@
     -webkit-backdrop-filter: var(--glass-blur);
     border: 0;
     border-radius: var(--radius-pill);
-    /* --glass-shadow 의 inset 1px 하이라이트가 테두리 선처럼 보여 뺀다 */
-    box-shadow: 0 18px 50px -12px rgba(0,0,0,0.6);
+    box-shadow: var(--glass-shadow);
   }
 
   .nav-brand{ display: flex; align-items: center; flex: none; }
