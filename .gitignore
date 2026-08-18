@@ -1,0 +1,25 @@
+# ==========================================================================
+# CFPASS — IIS 배포 저장소 (사이트 루트에 그대로 배치)
+# assets/img · assets/media 는 로컬에서 airpass-cfpass 로의 디렉터리 정션이며,
+# git 은 정션을 따라가 실제 파일을 담는다. 사이트가 참조하지 않는 파일만 뺀다.
+# 뺀 파일은 원본(airpass-cfpass)에 그대로 남아 있어 언제든 되살릴 수 있다.
+# ==========================================================================
+
+# 마크업이 참조하지 않는 mp4 — 모든 <video> 가 webm 단일 소스다
+assets/media/video/*.mp4
+
+# 개편 전 세대의 잔여 영상
+assets/media/video/services1.webm
+assets/media/video/services2.webm
+assets/media/video/services3.webm
+assets/media/video/index5.webm
+assets/media/video/20대_여성_한복_인사.webm
+
+# 구 사이트의 히어로 배경 (A-08 로 제거된 구성)
+assets/img/hero_*.jpg
+assets/img/Airpass_Logo.png
+
+# OS 부산물
+.DS_Store
+Thumbs.db
+desktop.ini

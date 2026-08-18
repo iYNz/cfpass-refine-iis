@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CFPASS | 가상모델 홍보영상 원스톱 제작</title>
+  <meta name="description" content="촬영 없이 가상모델로 홍보 영상을 제작합니다. 초상권 이슈 없는 전용 AI 페이스로 매장 디스플레이·통신 부가서비스까지 기획부터 규격별 납품까지 한 번에.">
+  <meta name="author" content="(주)에어패스">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="assets/brand/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+
+  <!-- 공유 카드. og:url · og:image 는 절대 URL 이 필요해 도메인 확정 후 채운다.
+       (크롤러 대부분이 상대 경로를 읽지 못한다) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CFPASS">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="CFPASS | 가상모델 홍보영상 원스톱 제작">
+  <meta property="og:description" content="촬영 없이 가상모델로 홍보 영상을 제작합니다. 초상권 이슈 없는 전용 AI 페이스로 기획부터 규격별 납품까지 한 번에.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="p-home">
+
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="glow-orb glow-orb--1"></div>
+    <div class="glow-orb glow-orb--2"></div>
+  </div>
+
+  <!-- ===== 헤더 (정본 셸) ===== -->
+  <header>
+    <div class="nav-scrim" aria-hidden="true"></div>
+    <nav class="nav-pill" aria-label="주 메뉴">
+      <a class="nav-brand" href="#hero">
+        <img src="assets/brand/cfpass_logo.png" alt="CFPASS" width="106" height="36">
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#hero">홈</a></li>
+          <li><a href="#about">소개</a></li>
+          <li><a href="#reference">가상모델</a></li>
+          <li><a href="#media">샘플</a></li>
+          <li><a href="#services">서비스</a></li>
+          <li><a href="#contact">문의</a></li>
+        </ul>
+        <a class="btn btn--cta" href="https://www.15331611.com/" target="_blank" rel="noopener noreferrer"
+           aria-label="영상제작센터 (새 창에서 열림)">영상제작센터</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="메뉴 열기">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================ HERO ============================ -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-inner">
+            <span class="glass-pill">가상모델 기반 원스톱 제작</span>
+            <h1>브랜드를 홍보하는<br>원스톱 서비스</h1>
+            <p class="lead">
+              가상모델, 매장 홍보, 통신 부가서비스까지 한 번에.<br>
+              초상권 이슈에 자유로운 워크플로우로 기획·제작·납품합니다.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn--cta btn--lg" href="https://www.15331611.com/" target="_blank" rel="noopener noreferrer"
+                 aria-label="영상제작센터 (새 창에서 열림)">영상제작센터</a>
+            </div>
+          </div>
+
+          <!-- Coverflow — 세로 9:16, 3개가 화면에 걸리고 자동 순회 -->
+          <div class="coverflow" id="heroFlow" data-coverflow>
+            <div class="coverflow__stage" aria-label="제작 샘플 영상">
+              <!-- 좌·우 클릭 영역. preserve-3d에서 뒤로 밀린 카드는 스테이지 평면에
+                   가려 히트테스트가 되지 않으므로, 평면 버튼이 클릭을 대신 받는다. -->
+              <button class="cf-zone cf-zone--prev" type="button" aria-label="이전 영상 보기"></button>
+              <button class="cf-zone cf-zone--next" type="button" aria-label="다음 영상 보기"></button>
+
+              <div class="coverflow__item" data-pos="center"
+                   data-float1="가상모델 적용|초상권 이슈 없음" data-float2="V프로필링|9:16 세로 규격 납품">
+                <video data-src="assets/media/video/indexP1.webm" poster="assets/poster/indexP1.jpg" data-autoplay
+                       preload="none" muted loop playsinline></video>
+              </div>
+              <div class="coverflow__item" data-pos="right"
+                   data-float1="매장 홍보 영상|사장님TV · 우리동네TV" data-float2="업종별 템플릿|촬영 없이 즉시 제작">
+                <video data-src="assets/media/video/indexP2.webm" poster="assets/poster/indexP2.jpg" data-autoplay
+                       preload="none" muted loop playsinline></video>
+              </div>
+              <div class="coverflow__item" data-pos="left"
+                   data-float1="소상공인 맞춤|업종 테마 자동 매핑" data-float2="다규격 대량 생산|1:1 · 9:16 · 16:9">
+                <video data-src="assets/media/video/indexP3.webm" poster="assets/poster/indexP3.jpg" data-autoplay
+                       preload="none" muted loop playsinline></video>
+              </div>
+            </div>
+
+            <!-- 플로팅 태그 — 슬라이드마다 세트가 하나씩 대응 (JS가 내용 교체) -->
+            <div class="float-card float-card--1" aria-hidden="true">
+              <div class="fc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="fc-body">
+                <div class="fc-text"></div>
+                <div class="fc-sub"></div>
+              </div>
+            </div>
+            <div class="float-card float-card--2" aria-hidden="true">
+              <div class="fc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+              <div class="fc-body">
+                <div class="fc-text"></div>
+                <div class="fc-sub"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ ABOUT (2패널 · 하단 인디케이터) ============================ -->
+    <section class="section section--lower" id="about">
+      <div class="container">
+        <div class="panels panels--locked anim" data-panels>
+          <div class="panel-stage">
+            <article class="panel is-on" id="about-steps">
+            <div class="section-head">
+              <h2>초상권에서 자유로운 모델.</h2>
+              <p class="lead">재촬영 없이, 규격대로, 빠르게. 세 단계로 끝납니다.</p>
+            </div>
+
+            <div class="steps">
+              <article class="step">
+                <div class="step__orb">
+                  <video data-src="assets/media/video/step1.webm" data-autoplay poster="assets/img/step1.jpg" preload="none" muted loop playsinline></video>
+                </div>
+                <div class="step__tag">
+                  <span class="step__no">1</span>
+                  <span>
+                    <span class="step__title">쉐도우 모델 촬영</span>
+                    <span class="step__desc">그린 매트에서 기준 모델을 촬영</span>
+                  </span>
+                </div>
+              </article>
+
+              <article class="step">
+                <div class="step__orb">
+                  <img src="assets/img/step2.jpg" alt="AI 페이스 모델 생성">
+                </div>
+                <div class="step__tag">
+                  <span class="step__no">2</span>
+                  <span>
+                    <span class="step__title">AI 페이스 모델 생성</span>
+                    <span class="step__desc">연령·성별·톤별 전용 얼굴 생성</span>
+                  </span>
+                </div>
+              </article>
+
+              <article class="step">
+                <div class="step__orb">
+                  <video data-src="assets/media/video/step3.webm" data-autoplay poster="assets/img/step3.jpg" preload="none" muted loop playsinline></video>
+                </div>
+                <div class="step__tag">
+                  <span class="step__no">3</span>
+                  <span>
+                    <span class="step__title">합성 &amp; 납품</span>
+                    <span class="step__desc">규격별로 검수해 납품</span>
+                  </span>
+                </div>
+              </article>
+            </div>
+
+            <p class="virtues-line">
+              <strong>초상권 클린</strong> 전용 AI 페이스로 상업적 사용에 안전
+              <span class="sep">·</span>
+              <strong>빠른 확장</strong> 얼굴·표정·포즈를 하나의 모델 위에서 전개
+              <span class="sep">·</span>
+              <strong>저비용 · 일관성</strong> 재촬영 없이 모든 규격에서 톤 유지
+            </p>
+            </article>
+            <article class="panel panel--clips" id="about-clips">
+            <div class="section-head">
+              <h2>합성을 위한 그린매트 소스.</h2>
+              <p class="lead">설·추석 한복부터 시즌 행사까지, 바로 활용 가능한 원본 소스를 다양하게 보유하고 있습니다.</p>
+            </div>
+            <div class="marquee">
+              <div class="marquee__viewport" id="mqViewport">
+              <div class="marquee__track">
+              <figure class="mq-tile" data-title="10대 · 여성" data-copy="10대 여성 한복 인사"><video data-src="assets/media/video/10대_여성_한복_인사.webm" poster="assets/poster/gm1.jpg" preload="none" muted loop playsinline></video><figcaption>10대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="10대 · 여성" data-copy="10대 여성 한복 미소"><video data-src="assets/media/video/10대_여성_한복_미소.webm" poster="assets/poster/gm2.jpg" preload="none" muted loop playsinline></video><figcaption>10대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="10대 · 여성" data-copy="10대 여성 한복 선물 주기"><video data-src="assets/media/video/10대_여성_한복_선물 주기.webm" poster="assets/poster/gm3.jpg" preload="none" muted loop playsinline></video><figcaption>10대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="10대 · 남성" data-copy="10대 남성 한복 미소"><video data-src="assets/media/video/10대_남성_한복_미소.webm" poster="assets/poster/gm4.jpg" preload="none" muted loop playsinline></video><figcaption>10대 · 남성</figcaption></figure>
+              <figure class="mq-tile" data-title="10대 · 남성" data-copy="10대 남성 한복 선물 주기"><video data-src="assets/media/video/10대_남성_한복_선물 주기.webm" poster="assets/poster/gm5.jpg" preload="none" muted loop playsinline></video><figcaption>10대 · 남성</figcaption></figure>
+              <figure class="mq-tile" data-title="20대 · 여성" data-copy="20대 여성 한복 인사"><video data-src="assets/media/video/20대_여성_한복_선물 받기.webm" poster="assets/poster/gm6.jpg" preload="none" muted loop playsinline></video><figcaption>20대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="20대 · 여성" data-copy="20대 여성 한복 바라보기"><video data-src="assets/media/video/20대_여성_한복_바라보기.webm" poster="assets/poster/gm7.jpg" preload="none" muted loop playsinline></video><figcaption>20대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="20대 · 여성" data-copy="20대 여성 한복 선물 주기"><video data-src="assets/media/video/20대_여성_한복_선물 주기.webm" poster="assets/poster/gm8.jpg" preload="none" muted loop playsinline></video><figcaption>20대 · 여성</figcaption></figure>
+              <figure class="mq-tile" data-title="20대 · 남성" data-copy="20대 남성 인사"><video data-src="assets/media/video/20대_남성_인사.webm" poster="assets/poster/gm9.jpg" preload="none" muted loop playsinline></video><figcaption>20대 · 남성</figcaption></figure>
+              <figure class="mq-tile" data-title="20대 · 남성" data-copy="20대 남성 선물 주기"><video data-src="assets/media/video/20대_남성_선물 주기.webm" poster="assets/poster/gm10.jpg" preload="none" muted loop playsinline></video><figcaption>20대 · 남성</figcaption></figure>
+              </div>
+              </div>
+              <div class="marquee__nav">
+                <button class="rail-nav" type="button" id="mqPrev" aria-label="이전 클립 보기">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="rail-nav" type="button" id="mqNext" aria-label="다음 클립 보기">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+            </div>
+            </article>
+          </div>
+
+          <div class="pager">
+            <div class="pager__in" role="tablist" aria-label="소개 전환">
+              <button class="pager__dot" type="button" role="tab" aria-selected="true"  aria-label="초상권에서 자유로운 모델"></button>
+              <button class="pager__dot" type="button" role="tab" aria-selected="false" aria-label="합성을 위한 그린매트 소스"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 가상 모델 ============================ -->
+    <section class="section" id="reference">
+      <div class="container">
+        <div class="section-head anim">
+          <h2>연령·성별별 가상모델.</h2>
+          <p class="lead">실존 인물이 아니라 초상권 이슈 없이 상업 콘텐츠에 바로 투입할 수 있습니다.</p>
+        </div>
+
+        <!-- imw 설치사례 구조: 좌 28% 그룹 선택 / 우 72% 5×2 그리드 -->
+        <div class="showcase anim">
+          <div class="showcase__aside">
+            <div class="showcase__list" id="refTabs" role="tablist" aria-label="모델 그룹 선택"></div>
+          </div>
+          <div class="showcase__main">
+            <div class="ref-grid" id="refGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 샘플 미디어 ============================ -->
+    <section class="section" id="media">
+      <div class="container">
+        <div class="section-head anim">
+          <h2>결과물로 확인하세요.</h2>
+        </div>
+
+        <div class="panels" data-panels>
+          <div class="panel-stage">
+            <article class="panel is-on" id="media-v">
+              <div class="coverflow coverflow--v" data-coverflow data-cf-lightbox>
+                <div class="coverflow__stage" aria-label="세로형 샘플 영상">
+                  <button class="cf-zone cf-zone--prev" type="button" aria-label="이전 영상 보기"></button>
+                  <button class="cf-zone cf-zone--next" type="button" aria-label="다음 영상 보기"></button>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="가상모델 · V프로필링|9:16 세로 규격 납품">
+                    <video data-src="assets/media/video/indexP1.webm" poster="assets/poster/indexP1.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="스크린골프 매장 홍보|업종별 템플릿 적용">
+                    <video data-src="assets/media/video/indexP2.webm" poster="assets/poster/indexP2.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="세탁소 매장 홍보|촬영 없이 즉시 제작">
+                    <video data-src="assets/media/video/indexP3.webm" poster="assets/poster/indexP3.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+
+                  <!-- 플로팅 태그 1개 — 중앙 카드 폭(--cf-cw)에 물려 좌하단에 걸친다 -->
+                  <div class="float-card float-card--rail" aria-hidden="true">
+                    <div class="fc-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <div class="fc-body"><div class="fc-text"></div><div class="fc-sub"></div></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="panel" id="media-h">
+              <div class="coverflow coverflow--h" data-coverflow data-cf-lightbox>
+                <div class="coverflow__stage" aria-label="가로형 샘플 영상">
+                  <button class="cf-zone cf-zone--prev" type="button" aria-label="이전 영상 보기"></button>
+                  <button class="cf-zone cf-zone--next" type="button" aria-label="다음 영상 보기"></button>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="V링고|통신 부가서비스 납품 규격">
+                    <video data-src="assets/media/video/indexH1.webm" poster="assets/poster/indexH1.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="사장님TV|매장 디스플레이 템플릿">
+                    <video data-src="assets/media/video/indexH2.webm" poster="assets/poster/indexH2.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="V링고|브랜드 컬러·로고 매핑">
+                    <video data-src="assets/media/video/indexH3.webm" poster="assets/poster/indexH3.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="사장님TV|메뉴·행사 자동 전환">
+                    <video data-src="assets/media/video/indexH4.webm" poster="assets/poster/indexH4.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="우리동네TV|지역 타깃 홍보 영상">
+                    <video data-src="assets/media/video/indexH5.webm" poster="assets/poster/indexH5.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+                  <div class="coverflow__item" data-pos="hidden" data-float1="사장님TV|업종별 시즌 세트">
+                    <video data-src="assets/media/video/indexH6.webm" poster="assets/poster/indexH6.jpg" data-autoplay
+                           preload="none" muted loop playsinline></video>
+                  </div>
+
+                  <!-- 플로팅 태그 1개 — 중앙 카드 폭(--cf-cw)에 물려 좌하단에 걸친다 -->
+                  <div class="float-card float-card--rail" aria-hidden="true">
+                    <div class="fc-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <div class="fc-body"><div class="fc-text"></div><div class="fc-sub"></div></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="panel-tabs" role="tablist" aria-label="샘플 형태 선택">
+            <button class="panel-tab" type="button" role="tab" aria-selected="true"  aria-controls="media-v">세로형</button>
+            <button class="panel-tab" type="button" role="tab" aria-selected="false" aria-controls="media-h">가로형</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ SERVICES (deck-nanum-kinect 2p 스트립) ============================ -->
+    <section class="section sb" id="services">
+      <div class="container">
+        <header class="sb-head anim">
+          <h2 class="sb-title">가상모델부터 통신 디스플레이까지.</h2>
+        </header>
+      </div>
+
+      <div class="sb-strip-wrap">
+        <div class="sb-strip" id="sbStrip">
+          <div class="sb-card is-active" data-i="0">
+            <div class="sb-card__inner">
+              <video data-src="assets/media/video/services1_detail.webm" poster="assets/poster/services1_detail.jpg" data-no-lazy preload="none" muted loop playsinline></video>
+              <span class="sb-card__grad" aria-hidden="true"></span>
+              <div class="sb-card__text">
+                <span class="sb-card__no">AI 모델 에이전시</span>
+                <p class="sb-card__cap"><span class="l1">맞춤형 AI 모델로 콘텐츠 파이프라인을 만듭니다.</span> <span class="l2">전용 쉐도우 모델과 다중 얼굴 맵으로 촬영 없이<br>대량 생성하고, 브랜드 가이드를 매핑해 1:1 · 9:16 · 16:9 · V컬러링 규격으로 납품합니다.</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="sb-card" data-i="1">
+            <div class="sb-card__inner">
+              <video data-src="assets/media/video/services2_detail.webm" poster="assets/poster/services2_detail.jpg" data-no-lazy preload="none" muted loop playsinline></video>
+              <span class="sb-card__grad" aria-hidden="true"></span>
+              <div class="sb-card__text">
+                <span class="sb-card__no">사장님TV · 우리동네TV</span>
+                <p class="sb-card__cap"><span class="l1">매장 디스플레이에 즉시 투입되는 규격 템플릿.</span> <span class="l2">매장 테마에 맞춘 메뉴·행사·브랜딩 템플릿을<br>디지털 사이니지 규격으로 통일하고, 낮/밤/시즌 자동 전환 세트까지 함께 제공합니다.</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="sb-card" data-i="2">
+            <div class="sb-card__inner">
+              <video data-src="assets/media/video/services3_detail.webm" poster="assets/poster/services3_detail.jpg" data-no-lazy preload="none" muted loop playsinline></video>
+              <span class="sb-card__grad" aria-hidden="true"></span>
+              <div class="sb-card__text">
+                <span class="sb-card__no">V링고 서비스</span>
+                <p class="sb-card__cap"><span class="l1">V링고 · V컬러링 · V프로필링 맞춤 제작.</span> <span class="l2">브랜드 가이드를 지킨 컬러·로고·카피 매핑으로 대량 버전을<br>만들고, 사업자/통신사 포맷별로 패키징해 권리 관리까지 정리해 넘깁니다.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <div class="pager__in" id="sbDots" role="tablist" aria-label="서비스 전환"></div>
+      </div>
+    </section>
+
+    <!-- ============================ CONTACT (imw 문의 섹션 구조 · 배경 영상 없음) ============================ -->
+    <section class="section contact" id="contact">
+      <div class="contact__glow" aria-hidden="true"></div>
+
+      <div class="contact__panel anim">
+        <h2>브랜드를 홍보하세요.</h2>
+        <p class="contact__sub">친절하고 상세하게 상담해 드립니다.</p>
+
+        <a class="contact__phone" href="tel:02-561-1511">02-561-1511</a>
+
+        <div class="contact__meta">
+          <span class="contact__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:airpass@cfpass.com">airpass@cfpass.com</a>
+          </span>
+          <span class="contact__dot" aria-hidden="true">·</span>
+          <span class="contact__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            평일 09:00 - 18:00 (주말/공휴일 휴무)
+          </span>
+        </div>
+
+        <form class="contact__form" id="contactForm">
+          <input class="contact__field" type="text" name="name" placeholder="이름" aria-label="이름" autocomplete="name" required>
+          <input class="contact__field" type="tel" name="phone" placeholder="연락처" aria-label="연락처" autocomplete="tel" required>
+          <textarea class="contact__field" name="message" rows="3" placeholder="문의 내용" aria-label="문의 내용" required></textarea>
+          <button class="contact__submit" type="submit">문의하기</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 푸터 (vbizring 구조 · 패밀리 링크 없음 — R-04) ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a class="footer-brand" href="#hero">
+            <img src="assets/brand/cfpass_logo.png" alt="CFPASS" width="83" height="28">
+          </a>
+          <p class="footer-desc">촬영 없이 가상모델로 홍보 영상을 제작하는 서비스.<br>기획부터 규격별 납품까지, 전문 제작팀이 함께합니다.</p>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-phone">02-561-1511</div>
+          <div class="footer-phone-label">영상 제작 문의</div>
+          <a class="footer-email" href="mailto:airpass@cfpass.com">airpass@cfpass.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <span>(주)에어패스</span>
+          <span>대표이사: 임종호</span>
+          <span>경기도 하남시 하남대로 947, D동 15층</span>
+        </div>
+        <div class="footer-copy">&copy; 2026 CFPASS. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== 라이트박스 ===== -->
+  <!-- ===== 라이트박스 (deck-nanum-kinect 방식: 미디어 아래에 메타) ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox__inner" role="dialog" aria-modal="true" aria-label="미디어 크게 보기">
+      <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="이전">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 5 8 12 15 19"/></svg>
+      </button>
+      <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="다음">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg>
+      </button>
+      <div class="lightbox__stage" id="lightboxStage">
+        <button class="lightbox__close" type="button" aria-label="닫기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="lightbox__meta">
+        <span class="lightbox__name"></span>
+        <div class="lightbox__tags"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 우측 하단 플로팅 내비 (vbizring .floating-nav 구조) ===== -->
+  <div class="floating-nav" id="floatingNav">
+    <button class="float-toggle" id="floatToggle" type="button"
+            aria-expanded="false" aria-controls="floatMenu" aria-label="빠른 메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="float-menu" id="floatMenu">
+      <a class="float-link" href="#hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>홈
+      </a>
+      <a class="float-link" href="#about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>소개
+      </a>
+      <a class="float-link" href="#reference">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>가상모델
+      </a>
+      <a class="float-link" href="#media">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>샘플
+      </a>
+      <a class="float-link" href="#services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>서비스
+      </a>
+      <a class="float-link float-link--cta" href="#contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>문의
+      </a>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

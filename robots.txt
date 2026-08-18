@@ -1,0 +1,7 @@
+# CFPASS — https://github.com/iYNz/cfpass-refine
+# 전 페이지 색인 허용. 단일 페이지 사이트라 별도 차단 경로가 없다.
+# Sitemap 은 절대 URL 이 필요해 도메인 확정 후 아래 줄을 살린다.
+#   Sitemap: https://<도메인>/sitemap.xml
+
+User-agent: *
+Allow: /
