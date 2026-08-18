@@ -65,7 +65,7 @@
             <h1>브랜드를 홍보하는<br>원스톱 서비스</h1>
             <p class="lead">
               가상모델, 매장 홍보, 통신 부가서비스까지 한 번에.<br>
-              초상권 이슈에 자유로운 워크플로우로 기획·제작·납품합니다.
+              초상권 이슈에 자유로운 공정으로 기획·제작·납품합니다.
             </p>
             <div class="hero-cta">
               <a class="btn btn--cta btn--lg" href="https://www.15331611.com/" target="_blank" rel="noopener noreferrer"
@@ -230,7 +230,7 @@
       <div class="container">
         <div class="section-head anim">
           <h2>연령·성별별 가상모델.</h2>
-          <p class="lead">실존 인물이 아니라 초상권 이슈 없이 상업 콘텐츠에 바로 투입할 수 있습니다.</p>
+          <p class="lead">초상권 이슈 없이 상업 콘텐츠에 바로 투입할 수 있습니다.</p>
         </div>
 
         <!-- imw 설치사례 구조: 좌 28% 그룹 선택 / 우 72% 5×2 그리드 -->
@@ -240,6 +240,16 @@
           </div>
           <div class="showcase__main">
             <div class="ref-grid" id="refGrid"></div>
+            <!-- 모바일 전용 — 한 명씩 보여 주고 좌·우로 넘긴다.
+                 데스크톱은 5×2 그리드라 숨는다 -->
+            <div class="ref-nav">
+              <button class="rail-nav" type="button" id="refPrev" aria-label="이전 모델 보기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="rail-nav" type="button" id="refNext" aria-label="다음 모델 보기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -336,7 +346,7 @@
     <section class="section sb" id="services">
       <div class="container">
         <header class="sb-head anim">
-          <h2 class="sb-title">가상모델부터 통신 디스플레이까지.</h2>
+          <h2 class="sb-title">가상모델로 다양한 영상 제작.</h2>
         </header>
       </div>
 

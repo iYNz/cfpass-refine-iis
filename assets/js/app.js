@@ -839,6 +839,33 @@
     var grid = document.getElementById('refGrid');
     if (!tabsWrap || !grid) return;
 
+    /* 모바일은 카드 한 장씩 보여 주고 좌·우 버튼으로 넘긴다.
+       데스크톱은 5×2 그리드라 버튼이 숨겨져 있고 아래 코드는 놀고 있는다. */
+    var refPrev = document.getElementById('refPrev');
+    var refNext = document.getElementById('refNext');
+
+    function syncRefNav() {
+      if (!refPrev || !refNext) return;
+      var max = grid.scrollWidth - grid.clientWidth - 1;
+      refPrev.disabled = grid.scrollLeft <= 0;
+      refNext.disabled = grid.scrollLeft >= max;
+    }
+
+    if (refPrev && refNext) {
+      [[refPrev, -1], [refNext, 1]].forEach(function (pair) {
+        pair[0].addEventListener('click', function () {
+          var card = grid.querySelector('.ref-card');
+          var step = card ? card.offsetWidth : grid.clientWidth;
+          grid.scrollBy({
+            left: pair[1] * step,
+            behavior: prefersReduced ? 'auto' : 'smooth'
+          });
+        });
+      });
+      grid.addEventListener('scroll', syncRefNav, { passive: true });
+      window.addEventListener('resize', syncRefNav);
+    }
+
     /* 모바일에서는 그룹 목록이 가로 스크롤이라 선택 항목이 화면 밖에 있을 수
        있다. 목록 자체의 scrollLeft 만 움직여(페이지는 건드리지 않는다) 가운데로. */
     function centerTab(btn) {
@@ -982,6 +1009,10 @@
           });
         }(i - 1));
       }
+
+      /* 그룹을 바꾸면 첫 모델부터 다시 본다 */
+      grid.scrollLeft = 0;
+      syncRefNav();
     }
 
     render(REF_DEFAULT);

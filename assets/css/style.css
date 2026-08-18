@@ -146,6 +146,13 @@
 
   ::selection{ background: var(--brand); color: #fff; }
 
+  /* 한국어는 기본값에서 글자 단위로 줄바꿈돼 단어가 쪼개진다
+     ("자유로운" → "자 / 유로운"). 폭이 좁을수록 두드러지므로 어절로 끊고,
+     끊을 수 없는 긴 토큰(메일·URL)만 overflow-wrap 이 받아 준다. */
+  @media (max-width: 640px){
+    body{ word-break: keep-all; overflow-wrap: break-word; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior: auto; }
     *, *::before, *::after{
@@ -881,6 +888,9 @@
   /* 정사각 → 4:5 이므로 세로는 전부 들어오고 좌우만 덜어진다(얼굴 온전) */
   .ref-card .media img{ object-fit: cover; }
 
+  /* 좌·우 이동 버튼 — 모바일 1인 카루셀에서만 쓴다 */
+  .ref-nav{ display: none; }
+
   /* 이름은 항상 밝게, 태그는 원래대로 눌러 둔다 */
   .ref-card__name{ font-size: 0.875rem; font-weight: 600; color: var(--text-main); }
   .ref-card__tags{ display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
@@ -1259,7 +1269,6 @@
     .hero-inner{ gap: 14px; }
     .hero h1{ font-size: 2rem; }
     .hero .lead{ font-size: 0.9375rem; line-height: 1.65; }
-    .hero .lead br{ display: none; }   /* 좁은 폭에서는 자연 줄바꿈이 낫다 */
     .hero .glass-pill{ font-size: 0.75rem; padding: 7px 14px; }
 
     .coverflow__stage{
@@ -1309,15 +1318,37 @@
     .marquee{ --mq-h: min(360px, 42vh); }
     .marquee__nav{ inset: 0; }
 
-    /* 가상모델 */
-    .showcase__aside{ padding: 14px 12px; }
-    .showcase__item{ padding: 10px 14px; gap: 10px; }
-    .showcase__thumb{ width: 30px; height: 30px; }
-    .showcase__name{ font-size: 0.9375rem; }
-    .showcase__main{ padding: 16px 12px; }
-    .ref-grid{ gap: 16px 12px; }
-    .ref-card__name{ font-size: 0.8125rem; }
-    .tag-chip{ font-size: 0.625rem; padding: 2px 7px; }
+    /* ---- 가상모델 — 좌: 그룹 선택(세로) / 우: 한 명씩 좌우 이동 ----------
+       2열 그리드로 10명을 세로로 늘어놓으면 섹션이 1800px 를 넘는다.
+       데스크톱 구조(좌 선택 / 우 콘텐츠)를 유지한 채 우측만 1인 카루셀로. */
+    .showcase{ grid-template-columns: 138px minmax(0, 1fr); }
+    .showcase__aside{ padding: 12px 10px; }
+    .showcase__list{ flex-direction: column; overflow: visible; gap: 4px; }
+    .showcase__item{ width: 100%; padding: 8px; gap: 8px; }
+    .showcase__thumb{ width: 26px; height: 26px; }
+    .showcase__name{ font-size: 0.75rem; }
+    .showcase__main{ position: relative; padding: 14px 10px; }
+
+    .ref-grid{
+      display: flex; grid-template-columns: none; gap: 0;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .ref-grid::-webkit-scrollbar{ display: none; }
+    .ref-card{ flex: 0 0 100%; scroll-snap-align: center; }
+    .ref-card__name{ font-size: 0.875rem; }
+    .tag-chip{ font-size: 0.6875rem; padding: 2px 7px; }
+
+    .ref-nav{
+      display: flex; position: absolute; inset: 0;
+      align-items: center; justify-content: space-between;
+      padding-inline: 2px; pointer-events: none;
+    }
+    /* 얼굴 사진 위에 얹히므로 밝은 피부톤에서도 보이게 그림자를 준다 */
+    .ref-nav .rail-nav{
+      pointer-events: auto;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.75));
+    }
 
     /* 샘플 — 탭 높이를 손가락에 맞춘다 */
     .panel-tab{ padding: 10px 20px; }
