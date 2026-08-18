@@ -95,6 +95,14 @@
 
   html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
+  /* body 의 overflow-x:hidden 은 뷰포트로 전파되지 않는 경우가 있다.
+     그러면 문서 스크롤 폭이 화면보다 넓어지고, 고정 요소(nav pill · 플로팅
+     메뉴)가 그 넓이를 기준으로 배치돼 우측 CTA 가 화면 밖으로 밀린다.
+     루트에서 잘라 가로 스크롤을 확실히 없앤다 — clip 은 스크롤 컨테이너를
+     만들지 않아 세로 스크롤·position:sticky 에 영향이 없다.
+     (미지원 브라우저는 아래 body 의 overflow-x:hidden 으로 떨어진다) */
+  html{ overflow-x: clip; }
+
   /* 스크롤바 — vbizring 규격(8px · 투명 트랙 · 라운드 썸)을 다크톤으로 */
   html{ scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
   ::-webkit-scrollbar{ width: 8px; height: 8px; }
@@ -224,14 +232,18 @@
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
   }
 
-  /* ---- 고정 글래스 pill 헤더 ---- */
+  /* ---- 고정 글래스 pill 헤더 ----------------------------------------------
+     폭을 %·vw 로 잡으면 초기 컨테이닝 블록이 화면보다 넓게 잡히는 환경
+     (모바일 줌·에뮬레이션)에서 pill 이 화면 밖으로 삐져나가 우측 CTA 가
+     잘린다. 좌·우를 못 박고 margin:auto 로 가운데 두면 폭 계산이 필요 없다. */
   .nav-pill{
-    position: fixed; top: var(--nav-top); left: 50%;
-    transform: translateX(-50%);
+    position: fixed; top: var(--nav-top);
+    inset-inline: 24px;
+    margin-inline: auto;
     z-index: var(--z-nav);
     display: flex; align-items: center; justify-content: space-between;
     gap: 24px;
-    width: calc(100% - 48px);
+    width: auto;
     max-width: var(--container);
     padding: 12px 24px;
     background: var(--glass-bg);
@@ -256,20 +268,6 @@
   }
   .nav-links a:hover{ color: var(--text-main); }
   .nav-links a.is-current{ color: var(--text-main); font-weight: 700; }
-
-  .nav-toggle{
-    display: none;
-    width: 40px; height: 40px;
-    align-items: center; justify-content: center;
-    border-radius: 50%;
-    color: var(--text-main);
-    transition: background var(--dur-fast) var(--ease);
-  }
-  .nav-toggle:hover{ background: var(--panel-bg); }
-  .nav-toggle svg{ width: 20px; height: 20px; }
-  .nav-toggle .icon-close{ display: none; }
-  .nav-toggle[aria-expanded="true"] .icon-open{ display: none; }
-  .nav-toggle[aria-expanded="true"] .icon-close{ display: block; }
 
   /* ---- 버튼 ---- */
   .btn{
@@ -1180,36 +1178,32 @@
   }
   .anim.is-visible{ opacity: 1; transform: none; }
 
-  /* ---- 모바일 (A-07: 붕괴 방지 수준) ---- */
+  /* ---- 태블릿 · 모바일 (≤992) ------------------------------------------
+     상단 nav 는 로고 + 영상제작센터만 남기고, 섹션 이동은 우측 하단
+     플로팅 메뉴가 전담한다. 스크롤 락도 이 폭부터 꺼지므로 섹션을
+     100vh 로 묶지 않고 콘텐츠 높이대로 흐르게 둔다.                       */
   @media (max-width: 992px){
-    .nav-pill{ width: calc(100% - 32px); padding: 10px 16px; gap: 12px; }
+    .nav-pill{ inset-inline: 16px; padding: 10px 16px; gap: 12px; }
     .nav-brand img{ height: 30px; }
     .nav-right{ gap: 12px; }
-    .nav-toggle{ display: inline-flex; }
+    .nav-links{ display: none; }
 
-    .nav-links{
-      display: none;
-      position: absolute; top: calc(100% + 12px); right: 0;
-      flex-direction: column; align-items: stretch; gap: 4px;
-      min-width: 180px; padding: 12px;
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-      border: 0;
-      border-radius: var(--radius-md);
-      box-shadow: var(--glass-shadow);
-    }
-    .nav-links.is-open{ display: flex; }
-    .nav-links a{ padding: 10px 12px; border-radius: var(--radius-sm); }
+    .section{ min-height: auto; }
 
     .btn{ padding: 9px 18px; font-size: 0.875rem; }
     .glass-panel{ padding: 28px; }
     .hero{ min-height: auto; padding-block: calc(var(--nav-offset) + 24px) 56px; }
 
     .hero-grid{ grid-template-columns: 1fr; gap: 40px; }
-    .hero-inner{ align-items: center; text-align: center; }
+    .hero-inner{ align-items: center; text-align: center; padding-left: 0; }
     .hero-cta{ justify-content: center; }
 
+    /* 높이에서 폭을 파생시키면 가로형 카드가 화면을 넘는다 — 폭 기준으로 뒤집는다 */
     .coverflow__stage{ --cf-h: min(52vh, 400px); --cf-bleed: 34px; }
+    .coverflow--h .coverflow__stage{
+      --cf-w: min(84vw, 620px);
+      --cf-h: calc(var(--cf-w) * 9 / 16);
+    }
     .coverflow__item[data-pos="left"]{ transform: translateX(-64%) translateZ(-200px) rotateY(30deg) scale(0.88); }
     .coverflow__item[data-pos="right"]{ transform: translateX(64%) translateZ(-200px) rotateY(-30deg) scale(0.88); }
 
@@ -1226,8 +1220,10 @@
     .footer-contact{ text-align: left; }
     .footer-bottom{ flex-direction: column; align-items: flex-start; }
 
-    .showcase{ grid-template-columns: 1fr; }
-    .showcase__aside{ padding: 20px 16px; }
+    /* minmax(0,1fr) 이 없으면 좌측 선택 목록(6개 · nowrap)의 min-content 가
+       트랙을 881px 까지 부풀려 섹션 전체가 컨테이너를 뚫고 나간다 */
+    .showcase{ grid-template-columns: minmax(0, 1fr); }
+    .showcase__aside{ padding: 20px 16px; min-width: 0; }
     .showcase__list{ flex-direction: row; overflow-x: auto; gap: 8px; scrollbar-width: none; }
     .showcase__list::-webkit-scrollbar{ display: none; }
     .showcase__item{ width: auto; flex: 0 0 auto; }
@@ -1237,6 +1233,137 @@
   }
   @media (max-width: 1200px) and (min-width: 993px){
     .ref-grid{ grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ---- 폰 (≤640) — iPhone 14 Pro Max(430×932) 기준으로 맞췄다 ----------
+     데스크톱은 높이(100vh)에서 요소 크기를 파생시키지만, 폰은 세로가 길고
+     가로가 좁아 그 방식이면 카드가 화면을 넘는다. 폭 기준으로 뒤집는다.   */
+  @media (max-width: 640px){
+    :root{ --container-pad: 20px; --nav-top: 14px; --nav-offset: 84px; }
+
+    .section{ padding-block: 72px 56px; }
+    .section--lower{ padding-block: 72px 48px; }
+    .section-head{ margin-bottom: 24px; }
+    .section-head .lead{ font-size: 0.9375rem; }
+    h2{ font-size: 1.5rem; }
+
+    /* nav — 로고 + 영상제작센터 두 개만 */
+    .nav-pill{ inset-inline: 12px; padding: 8px 10px 8px 16px; gap: 10px; }
+    .nav-brand img{ height: 26px; }
+    .btn{ padding: 9px 16px; font-size: 0.8125rem; }
+    .btn--lg{ padding: 14px 26px; font-size: 0.9375rem; }
+
+    /* 히어로 */
+    .hero{ padding-block: calc(var(--nav-offset) + 16px) 48px; }
+    .hero-grid{ gap: 28px; }
+    .hero-inner{ gap: 14px; }
+    .hero h1{ font-size: 2rem; }
+    .hero .lead{ font-size: 0.9375rem; line-height: 1.65; }
+    .hero .lead br{ display: none; }   /* 좁은 폭에서는 자연 줄바꿈이 낫다 */
+    .hero .glass-pill{ font-size: 0.75rem; padding: 7px 14px; }
+
+    .coverflow__stage{
+      --cf-w: min(56vw, 240px);
+      --cf-h: calc(var(--cf-w) * 16 / 9);
+      --cf-bleed: 20px;
+    }
+    .coverflow--v .coverflow__stage{
+      --cf-w: min(62vw, 264px);
+      --cf-h: calc(var(--cf-w) * 16 / 9);
+    }
+    .coverflow--h .coverflow__stage{
+      --cf-w: min(86vw, 420px);
+      --cf-h: calc(var(--cf-w) * 9 / 16);
+    }
+
+    /* 플로팅 태그 — 카드가 좁아져 원래 자리면 화면 밖으로 나간다 */
+    .float-card{ padding: 8px 11px; gap: 9px; border-radius: 14px; }
+    .fc-icon{ width: 27px; height: 27px; border-radius: 9px; }
+    .fc-icon svg{ width: 14px; height: 14px; }
+    .fc-text{ font-size: 0.75rem; }
+    .fc-sub{ font-size: 0.625rem; }
+    .float-card--1{ top: 0; right: 0; }
+    .float-card--2{ bottom: 0; left: 0; }
+    /* 샘플 레일 태그는 중앙 카드 폭에 물리지 않고 스테이지 우하단에 붙인다 */
+    .float-card--rail{
+      left: auto; right: 0; top: auto; bottom: 0;
+      margin-left: 0;
+    }
+
+    /* 소개 1p — 원 아래 태그를 쌓으면 3단이 900px 를 넘는다. 가로로 눕힌다 */
+    .steps{ gap: 16px; }
+    .step{ flex-direction: row; align-items: center; gap: 14px; padding-bottom: 0; }
+    .step__orb{ width: 92px; flex: none; }
+    .step__tag{
+      position: static; transform: none;
+      flex: 1 1 auto; min-width: 0;
+      padding: 11px 14px; border-radius: 16px;
+    }
+    .step__no{ width: 28px; height: 28px; font-size: 0.75rem; }
+    .step__title, .step__desc{ display: block; white-space: normal; }
+    .step__title{ font-size: 0.875rem; }
+    .step__desc{ font-size: 0.6875rem; }
+    .virtues-line{ margin-top: 24px; padding-top: 18px; font-size: 0.8125rem; line-height: 1.9; }
+
+    /* 소개 2p — 타일을 낮춰 레일에 두 장 가까이 걸치게 */
+    .marquee{ --mq-h: min(360px, 42vh); }
+    .marquee__nav{ inset: 0; }
+
+    /* 가상모델 */
+    .showcase__aside{ padding: 14px 12px; }
+    .showcase__item{ padding: 10px 14px; gap: 10px; }
+    .showcase__thumb{ width: 30px; height: 30px; }
+    .showcase__name{ font-size: 0.9375rem; }
+    .showcase__main{ padding: 16px 12px; }
+    .ref-grid{ gap: 16px 12px; }
+    .ref-card__name{ font-size: 0.8125rem; }
+    .tag-chip{ font-size: 0.625rem; padding: 2px 7px; }
+
+    /* 샘플 — 탭 높이를 손가락에 맞춘다 */
+    .panel-tab{ padding: 10px 20px; }
+    .panels .pager{ padding-top: 12px; }
+
+    /* 서비스 — 카드가 낮아져 2행 캡션이 카드를 뚫는다. 보조 문장은 접는다 */
+    .sb{ padding-block: 72px 40px; }
+    .sb-head{ margin-bottom: 14px; }
+    .sb-strip{ --sb-w: min(88vw, 420px); --sb-gap: 10px; }
+    .sb-card__inner{ border-radius: 20px; }
+    .sb-card__text{ padding: 14px 16px; }
+    .sb-card__no{ font-size: 0.75rem; padding: 4px 9px; margin-bottom: 6px; border-radius: 6px; }
+    .sb-card__cap{ font-size: 0.8125rem; line-height: 1.45; }
+    .sb-card__cap .l2{ display: none; }
+
+    /* 문의 */
+    .contact{ padding-inline: 16px; }
+    .contact__panel{ padding: 28px 22px; border-radius: 22px; }
+    .contact__sub{ margin-bottom: 24px; }
+    .contact__meta{ margin-bottom: 28px; gap: 8px; font-size: 0.75rem; }
+    .contact__dot{ display: none; }
+    .contact__field{ font-size: 1rem; }   /* 16px 미만이면 iOS 가 폼에서 확대한다 */
+
+    /* 라이트박스 */
+    .lightbox{ padding: 12px; }
+    .lightbox__stage{ --lb-h: 70vh; }
+    .lightbox__nav{ width: 40px; height: 40px; }
+    .lightbox__nav svg{ width: 26px; height: 26px; }
+
+    /* 플로팅 메뉴 — 모바일의 주 내비게이션이라 탭 영역을 키운다 */
+    .floating-nav{ right: 16px; bottom: 16px; }
+    .float-link{ padding: 14px 18px; font-size: 0.8125rem; }   /* 탭 높이 44px */
+  }
+
+  /* ---- 터치 기기 — :hover 가 탭 뒤에도 남아 잔상이 된다 ----------------
+     밝아진 상태로 굳어 버리므로 비호버 값을 그대로 다시 적는다.          */
+  @media (hover: none){
+    .ref-grid:has(.ref-card:hover) .ref-card{ filter: none; opacity: 1; }
+    .coverflow__stage:has(.cf-zone--prev:hover) .coverflow__item[data-pos="left"].is-adj,
+    .coverflow__stage:has(.cf-zone--next:hover) .coverflow__item[data-pos="right"].is-adj,
+    .coverflow__item[data-pos="left"]:hover,
+    .coverflow__item[data-pos="right"]:hover{
+      opacity: calc(0.67 - var(--d, 1) * 0.12);
+      filter: brightness(calc(0.63 - var(--d, 1) * 0.08));
+    }
+    .btn:hover, .card:hover, .float-toggle:hover{ transform: none; }
   }
 }
 

@@ -108,38 +108,39 @@
   var REF_IMG_BASE = 'assets/img';
   var REF_PER_GROUP = 10;
 
-  /* ---- 모바일 nav 토글 ------------------------------------------------- */
-  function initNavToggle() {
-    var toggle = document.querySelector('.nav-toggle');
-    var links = document.getElementById('navLinks');
-    if (!toggle || !links) return;
+  /* ---- 모바일 판정 — CSS 의 992 브레이크포인트와 같은 선을 본다 --------- */
+  var mqMobile = window.matchMedia('(max-width: 992px)');
+  function isMobile() { return mqMobile.matches; }
 
-    function setOpen(open) {
-      links.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
-    }
+  /* ---- 터치 스와이프 (캐러셀 공통) --------------------------------------
+     가로 이동이 세로보다 뚜렷할 때만 넘긴다 — 페이지 세로 스크롤을 뺏지
+     않도록 touchmove 는 건드리지 않고 passive 로만 듣는다. */
+  function bindSwipe(el, onSwipe) {
+    if (!el) return;
+    var MIN = 40;                 /* 이보다 짧으면 탭으로 본다 */
+    var x0 = 0, y0 = 0, tracking = false;
 
-    toggle.addEventListener('click', function () {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
+    el.addEventListener('touchstart', function (e) {
+      tracking = e.touches.length === 1;
+      if (!tracking) return;
+      x0 = e.touches[0].clientX;
+      y0 = e.touches[0].clientY;
+    }, { passive: true });
 
-    links.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') setOpen(false);
-    });
+    el.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - x0, dy = t.clientY - y0;
+      if (Math.abs(dx) < MIN || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+      onSwipe(dx < 0 ? 1 : -1);
 
-    document.addEventListener('click', function (e) {
-      if (!links.classList.contains('is-open')) return;
-      if (links.contains(e.target) || toggle.contains(e.target)) return;
-      setOpen(false);
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && links.classList.contains('is-open')) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
+      /* 스와이프 끝에서 브라우저가 click 을 한 번 더 쏜다 — 카드 클릭
+         핸들러(라이트박스 열기 등)가 딸려 열리지 않도록 한 번만 삼킨다. */
+      var kill = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
+      el.addEventListener('click', kill, { capture: true, once: true });
+      setTimeout(function () { el.removeEventListener('click', kill, true); }, 400);
+    }, { passive: true });
   }
 
   /* ---- 스크롤 스파이 (원페이지 nav 활성 표시) --------------------------- */
@@ -376,12 +377,16 @@
       a.addEventListener('click', function () { setOpen(false); });
     });
 
-    /* 히어로를 60% 지나면 노출 + 현재 섹션 표시 */
+    /* 데스크톱은 히어로를 60% 지나야 뜨지만, 모바일에서는 이게 유일한
+       내비게이션이므로 처음부터 띄운다. */
     var targets = links
       .map(function (a) { return document.querySelector(a.getAttribute('href')); });
 
     function sync() {
-      root.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+      root.classList.toggle(
+        'is-visible',
+        isMobile() || window.scrollY > window.innerHeight * 0.6
+      );
 
       var probe = window.scrollY + window.innerHeight * 0.3;
       var at = 0;
@@ -397,6 +402,7 @@
       ticking = true;
       window.requestAnimationFrame(function () { sync(); ticking = false; });
     }, { passive: true });
+    window.addEventListener('resize', sync);   /* 브레이크포인트를 넘나들 때 */
     sync();
   }
 
@@ -461,12 +467,14 @@
     var next = document.getElementById('mqNext');
     if (!track) return;
 
-    /* 소스는 전부 미리 붙여 둔다(합계 약 13MB) — 넘길 때 끊기지 않게.
-       재생은 레일에 실제로 걸친 타일만. 10개를 동시에 디코딩할 이유가 없다. */
-    track.querySelectorAll('video[data-src]').forEach(function (v) {
-      v.src = v.dataset.src;
-      v.dataset.loaded = '1';
-    });
+    /* 데스크톱은 소스를 전부 미리 붙인다(합계 약 13MB) — 넘길 때 끊기지 않게.
+       모바일은 셀룰러가 걸릴 수 있어 레일에 걸치는 타일만 그때 받는다. */
+    if (!isMobile()) {
+      track.querySelectorAll('video[data-src]').forEach(function (v) {
+        v.src = v.dataset.src;
+        v.dataset.loaded = '1';
+      });
+    }
 
     /* 패널이 숨어 있으면 전부 멈춘다. 보이면 절반 이상 걸친 타일만 재생 */
     var panel = viewport.closest ? viewport.closest('.panel') : null;
@@ -480,8 +488,9 @@
         var half = r.width * 0.5;
         var on = live && r.right > vr.left + half && r.left < vr.right - half;
         if (on && !prefersReduced) {
+          if (!v.dataset.loaded) { v.src = v.dataset.src; v.dataset.loaded = '1'; }
           if (v.paused) { var pl = v.play(); if (pl && pl.catch) pl.catch(function () {}); }
-        } else if (!v.paused) {
+        } else if (v.dataset.loaded && !v.paused) {
           v.pause();
         }
       });
@@ -638,6 +647,9 @@
     cards.forEach(function (el, i) {
       el.addEventListener('click', function () { if (i !== idx) go(i); });
     });
+
+    /* 모바일은 이웃 카드가 화면 밖으로 밀려나 탭할 곳이 없다 — 스와이프로 넘긴다 */
+    bindSwipe(strip.parentNode, function (d) { go(idx + d); });
 
     window.addEventListener('resize', render);
     render();
@@ -797,6 +809,9 @@
       zone.addEventListener('click', function () { go(idx + pair[1]); start(); });
     });
 
+    /* 터치에서는 좌우 탭보다 스와이프가 먼저 나온다 */
+    bindSwipe(stage, function (d) { go(idx + d); start(); });
+
     dots.forEach(function (d, i) {
       d.addEventListener('click', function () { go(i); start(); });
     });
@@ -823,6 +838,17 @@
     var tabsWrap = document.getElementById('refTabs');
     var grid = document.getElementById('refGrid');
     if (!tabsWrap || !grid) return;
+
+    /* 모바일에서는 그룹 목록이 가로 스크롤이라 선택 항목이 화면 밖에 있을 수
+       있다. 목록 자체의 scrollLeft 만 움직여(페이지는 건드리지 않는다) 가운데로. */
+    function centerTab(btn) {
+      if (tabsWrap.scrollWidth <= tabsWrap.clientWidth + 1) return;
+      var wr = tabsWrap.getBoundingClientRect();
+      var br = btn.getBoundingClientRect();
+      tabsWrap.scrollLeft += (br.left - wr.left) - (wr.width - br.width) / 2;
+    }
+
+    var defaultBtn = null;
 
     REF_GROUPS.forEach(function (g) {
       var btn = document.createElement('button');
@@ -852,9 +878,11 @@
           el.setAttribute('aria-selected', 'false');
         });
         btn.setAttribute('aria-selected', 'true');
+        centerTab(btn);
         switchTo(g.id);
       });
       tabsWrap.appendChild(btn);
+      if (g.id === REF_DEFAULT) defaultBtn = btn;
     });
 
     /* imw 설치사례 전환 — 현 목록을 왼쪽으로 빼고, 새 목록을 오른쪽에서
@@ -957,6 +985,8 @@
     }
 
     render(REF_DEFAULT);
+    /* 레이아웃이 잡힌 뒤라야 폭 계산이 맞는다 */
+    if (defaultBtn) requestAnimationFrame(function () { centerTab(defaultBtn); });
   }
 
   /* ---- 문의 폼 ----------------------------------------------------------
@@ -1013,8 +1043,9 @@
       return false;
     }
 
-    /* 데스크톱에서만 잠근다 — 모바일은 자유 스크롤이 낫다 */
-    function on() { return window.innerWidth > 992; }
+    /* 데스크톱에서만 잠근다 — 모바일은 자유 스크롤이 낫다.
+       판정은 CSS 브레이크포인트와 같은 곳(isMobile)을 본다 */
+    function on() { return !isMobile(); }
 
     function targetOf(i) {
       if (footer && i === sections.length) {
@@ -1089,7 +1120,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    initNavToggle();
     initScrollSpy();
     initLightbox();
     initReference();   /* 라이트박스 초기화 이후에 호출 — bindFrame이 lightbox를 참조 */
